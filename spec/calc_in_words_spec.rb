@@ -20,7 +20,10 @@ describe('calc_in_words') do
 
   it('will return the correct value of one number raised to another in a sentence') do
     calc_in_words("What is 4 to the 3rd power?").should(eq(64))
-  end  
+  end 
+
+  it('will return the correct value for multiple operations in a single sentence') do
+    calc_in_words()
 
   #it('will return the sum between two values in two sentences')  
 end
