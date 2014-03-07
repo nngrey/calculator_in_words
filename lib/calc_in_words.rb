@@ -1,59 +1,50 @@
-def calc_in_words(expression)
-  expression_array = expression[0..-2].split(" ")
+def split_expressions (questions)
+  final_results = []
 
-  result_operators = []
+  slice_here = questions.index("? ")
+  if slice_here != nil
+    first_expression = questions.slice(0..slice_here)
+    calculate_answers(first_expression)
+    final_results << calculate_answers(first_expression)
+    remaining_questions = questions.slice(slice_here + 2..-1)
+    split_expressions(remaining_questions)
+  else
+    final_results << calculate_answers(questions)
+  end
+  
+   final_results
+end
 
-  result_numbers = []
+def calculate_answers (single_question)
+  expression_array = single_question.split(" ")
+
+  equation_array = []
 
    operators = {
     "plus" => "+",
     "minus" => "-",
     "divided" => "/",
     "multiplied" => "*",
-    "power" => "**"
+    "power" => "**", 
+    "power?" => "**"
   }
 
   expression_array.each do |word|
-    operators.each do |operator, symbol|
-      if word == operator
-        # if word == "power"
-          
-        # else
-        result_numbers.push(symbol) 
-        
-      else 
-        number = word.to_i
-        if number > 0
-          result_numbers << number
-          break
-        end
+    if operators[word] == "**"
+      equation_array.insert(-2, "**") 
+    elsif operators[word] != nil
+      equation_array << operators[word]       
+    else
+      number = word.to_f
+      if number > 0
+        equation_array << number    
       end
     end
   end
-
-  # operators.each do |operator, symbol|
-  #   if expression_array.include?(operator)
-  #     result_operators.push(symbol) 
-  #   end
-  # end 
-  #puts result_numbers
- eval result_numbers.join
+ eval equation_array.join
 end
 
-#   if expression_array.include?("power")
-#     expression_array[2].to_i ** expression_array[5].to_i
-#   elsif expression_array.include?("multiplied")
-#     expression_array[2].to_i * expression_array[5].to_i
-#   elsif expression_array.include?("divided")
-#     expression_array[2].to_i / expression_array[5].to_i
-#   elsif expression_array.include?("plus")
-#     expression_array[2].to_i + expression_array[4].to_i
-#   else expression_array.include?("minus")
-#     expression_array[2].to_i - expression_array[4].to_i  
-#   end
-# end  
-
-puts calc_in_words("What is 2 plus 8 multiplied by 3 to the 2nd power?")
+p split_expressions("What is 2 plus 3? What is 7 divided by 4?")
 
 
  
