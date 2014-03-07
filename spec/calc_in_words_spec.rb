@@ -27,6 +27,6 @@ describe('split_expressions') do
   end
 
   it('will return the answers for multiple questions') do
-    split_expressions("What is 2 plus 3? What is 7 divided by 4?").should(eq([[5.0][1.75]]))
+    split_expressions("What is 2 plus 3? What is 7 divided by 4?").should(eq([5.0, 1.75]))
   end
 end

@@ -1,18 +1,13 @@
 def split_expressions (questions)
-  final_results = []
-
-  slice_here = questions.index("? ")
-  if slice_here != nil
-    first_expression = questions.slice(0..slice_here)
-    calculate_answers(first_expression)
-    final_results << calculate_answers(first_expression)
-    remaining_questions = questions.slice(slice_here + 2..-1)
-    split_expressions(remaining_questions)
-  else
-    final_results << calculate_answers(questions)
+  result = []
+  split_array = questions.split("? ")
+  i = 0
+  while i < split_array.length
+    split_array[i]
+    result << calculate_answers(split_array[i])
+    i += 1
   end
-  
-   final_results
+result
 end
 
 def calculate_answers (single_question)
